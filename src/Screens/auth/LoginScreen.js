@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,12 +27,21 @@ const LoginScreen = () => {
     }
     Alert.alert("Credentials", `${email} + ${password}`);
     console.log(`email: ${email}, password: ${password}`);
+
+    setEmail("");
+    setPassword("");
+    navigation.navigate("Home", {
+      screen: "DefaultScreen",
+    });
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <ImageBackground source={require("../../assets/images/PhotoBG.jpg")} style={styles.image}>
+        <ImageBackground
+          source={require("../../../assets/images/PhotoBG.jpg")}
+          style={styles.image}
+        >
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
             style={styles.mainBox}
@@ -61,7 +70,10 @@ const LoginScreen = () => {
               <TouchableOpacity activeOpacity={0.8} style={styles.button} onPress={onLogin}>
                 <Text style={styles.buttonText}>Войти</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate("Registration")}
+              >
                 <Text style={styles.aside}>Нет аккаунта? Зарегистрироваться</Text>
               </TouchableOpacity>
             </View>

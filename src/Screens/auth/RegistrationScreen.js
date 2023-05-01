@@ -1,3 +1,5 @@
+<script src="http://localhost:8097"></script>;
+
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -13,7 +15,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({ navigation }) => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,13 +31,23 @@ const RegistrationScreen = () => {
     }
     Alert.alert("Credentials", `${login}, ${email}, ${password}`);
     console.log(`login: ${login}, name: ${email}, password: ${password}`);
+
+    setLogin("");
+    setEmail("");
+    setPassword("");
+    navigation.navigate("Home", {
+      screen: "PostsScreen",
+    });
   };
 
   const showPassword = () => {};
 
   return (
     <View style={styles.mainWrapper}>
-      <ImageBackground source={require("../../assets/images/PhotoBG.jpg")} style={styles.bgImage}>
+      <ImageBackground
+        source={require("../../../assets/images/PhotoBG.jpg")}
+        style={styles.bgImage}
+      >
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.keyboard}
@@ -44,7 +56,7 @@ const RegistrationScreen = () => {
             <View style={styles.wrapper}>
               <TouchableOpacity style={styles.addBtn} activeOpacity={0.8}>
                 <ImageBackground
-                  source={require("../../assets/images/add.png")}
+                  source={require("../../../assets/images/add.png")}
                   style={styles.image}
                 ></ImageBackground>
               </TouchableOpacity>
@@ -82,7 +94,11 @@ const RegistrationScreen = () => {
               <Text style={styles.text}>Зарегистрироваться</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.5} style={styles.linkStyle}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("Login")}
+              style={styles.linkStyle}
+            >
               <Text style={styles.aside}>Уже есть аккаунт? Войти</Text>
             </TouchableOpacity>
           </View>
