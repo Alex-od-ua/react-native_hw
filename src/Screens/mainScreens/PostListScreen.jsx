@@ -7,47 +7,57 @@ import PostsScreen from "../nestedScreens/PostsScreen";
 import MapScreen from "../nestedScreens/MapScreen";
 import CommentsScreen from "../nestedScreens/CommentsScreen";
 import { back } from "react-native/Libraries/Animated/Easing";
+import { useNavigation } from "@react-navigation/native";
 
 const NestedScreen = createStackNavigator();
 
 export default function PostListScreen() {
+  const navigation = useNavigation();
 
-   return (
-    <NestedScreen.Navigator initialRouteName="Posts"
-      >
-      <NestedScreen.Screen name="Posts" component={PostsScreen} 
-         options={{
-          headerStyle : {
+  return (
+    <NestedScreen.Navigator initialRouteName="Posts">
+      <NestedScreen.Screen
+        name="Posts"
+        component={PostsScreen}
+        options={{
+          headerStyle: {
             borderTopWidth: 1,
             borderTopColor: "rgba(0, 0, 0, 0.2)",
           },
           headerTitleStyle: {
-            fontWeight: '500',
+            fontWeight: "500",
             fontSize: 17,
             color: "#212121",
             marginBottom: 5,
-          },    
+          },
           headerTitleAlign: "center",
           headerLeft: () => {
-           back ? null : undefined
+            back ? null : undefined;
           },
-          headerRightContainerStyle: { paddingRight: 20, marginBottom: 5},
+          headerRightContainerStyle: { paddingRight: 20, marginBottom: 5 },
           headerRight: () => (
-           <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('Login')}>
-            <Feather name="log-out" size={24} color="#BDBDBD" />
-           </TouchableOpacity>
-          ) }}/>
-      <NestedScreen.Screen 
-      options={{
-        headerShown: true,
-        headerTitleAlign: 'center',
-      }} name="Map" component={MapScreen}/>
-      <NestedScreen.Screen 
-      options={{
-        headerShown: true,
-        headerTitleAlign: 'center',
-      }}
-        name="Comments" component={CommentsScreen}/>
+            <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate("Login")}>
+              <Feather name="log-out" size={24} color="#BDBDBD" />
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <NestedScreen.Screen
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+        }}
+        name="Map"
+        component={MapScreen}
+      />
+      <NestedScreen.Screen
+        options={{
+          headerShown: true,
+          headerTitleAlign: "center",
+        }}
+        name="Comments"
+        component={CommentsScreen}
+      />
     </NestedScreen.Navigator>
-   )
-};
+  );
+}
